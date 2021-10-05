@@ -32,10 +32,10 @@ class LinkPreview {
   String toString() {
     // TODO: implement toString
     var map = {
-      'url': url,
-      'title': title,
-      'image': image,
-      'description': description,
+      '"url"': '"$url"',
+      '"title"': '"$title"',
+      '"image"': '"$image"',
+      '"description"': '"$description"',
     };
     return map.toString();
   }
