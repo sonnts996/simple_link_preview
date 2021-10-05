@@ -1,6 +1,7 @@
 name: simple_link_preview
 description: Returns a simple metadata to build web link preview.
 version: 1.0.0
+repository: https://github.com/sonnts996/simple_link_preview
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
