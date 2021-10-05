@@ -3,6 +3,7 @@
  Copyright (c) 2021 . All rights reserved.
 */
 class LinkPreview {
+  /// The returned object contains metadata information
   const LinkPreview({
     required this.url,
     this.image,
@@ -21,6 +22,7 @@ class LinkPreview {
     String? title,
     String? description,
   }) {
+    // clone new object
     return LinkPreview(
         url: url ?? this.url,
         image: image ?? this.image,

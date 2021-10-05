@@ -11,11 +11,15 @@ import 'package:universal_html/html.dart';
 import 'package:universal_html/parsing.dart';
 
 class LinkPreviewRepoV1 extends LinkPreviewRepo {
+  /// Extension object read metadata from web link.
+
   LinkPreviewRepoV1(String url) : super(url);
 
   @override
-  Future<LinkPreview?> getPreview() async {
+  Future<LinkPreview> getPreview() async {
     // TODO: implement getPreview
+    // throw Exception('Invalid url') if url is not valid
+    // Otherwise, return a valid LinkPreview.
     if (!uri.isAbsolute) throw Exception('Invalid url');
 
     var meta = await fetchMeta(url).catchError((error) {
@@ -52,15 +56,18 @@ class LinkPreviewRepoV1 extends LinkPreviewRepo {
   }
 
   Future<fetch.Metadata?> fetchMeta(String url) {
+    // Use fetch to get a faster metadata
     return fetch.MetadataFetch.extract(url);
   }
 
   Future<HtmlDocument> readHttp(Uri uri) async {
+    // read html from uri
     var contents = await http.read(uri);
     return parseHtmlDocument(contents);
   }
 
   void getMeta(HtmlDocument doc) {
+    // parsing data from meta tag
     var head = doc.head;
     if (head != null) {
       var t = head.querySelector('title')?.innerText;
@@ -97,6 +104,7 @@ class LinkPreviewRepoV1 extends LinkPreviewRepo {
   }
 
   bool _validMetaDescriptionElement(Element meta) {
+    // check meta tag contains description content
     var attr = meta.attributes;
     var name = attr['name'] ?? '';
     var property = attr['property'] ?? '';
@@ -107,6 +115,7 @@ class LinkPreviewRepoV1 extends LinkPreviewRepo {
   }
 
   bool _validMetaTitleElement(Element meta) {
+    // check meta tag contains title content
     var attr = meta.attributes;
     var name = attr['name'] ?? '';
     var property = attr['property'] ?? '';
@@ -117,6 +126,7 @@ class LinkPreviewRepoV1 extends LinkPreviewRepo {
   }
 
   bool _validMetaImageElement(Element meta) {
+    // check meta tag contains image content
     var attr = meta.attributes;
     var name = attr['name'] ?? '';
     var property = attr['property'] ?? '';

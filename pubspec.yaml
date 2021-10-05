@@ -1,5 +1,5 @@
 name: simple_link_preview
-description: Returns a simple metadata to build web link preview.
+description: Returns a simple metadata for generating a weblink preview by examining the html <meta> tags.
 version: 1.0.0
 repository: https://github.com/sonnts996/simple_link_preview
 
