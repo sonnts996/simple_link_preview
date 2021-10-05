@@ -6,8 +6,6 @@ import 'package:simple_link_preview/src/domain/repository/link_preview_repo.dart
 
 /// Public SimpleLinkPreview
 class SimpleLinkPreview {
-
-
   static Future<LinkPreview?> getPreview(String url) {
     // use LinkPreviewRepoV1 to get LinkPreview
     LinkPreviewRepo repository = LinkPreviewRepoV1(url);
