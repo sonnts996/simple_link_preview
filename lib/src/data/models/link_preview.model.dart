@@ -2,6 +2,7 @@
  Created by Thanh Son on 10/4/2021.
  Copyright (c) 2021 . All rights reserved.
 */
+/// The returned object contains metadata information
 class LinkPreview {
   /// The returned object contains metadata information
   const LinkPreview({
@@ -11,28 +12,33 @@ class LinkPreview {
     this.description,
   });
 
+  /// The weblink title. Null if cannot find the image
   final String? title;
+
+  /// The weblink url, this is your url
   final String url;
+
+  /// The weblink image. Null if cannot find the image
   final String? image;
+
+  /// The  weblink description. Null if cannot find the image
   final String? description;
 
+  /// Clone new object
   LinkPreview copyWith({
     String? url,
     String? image,
     String? title,
     String? description,
-  }) {
-    // clone new object
-    return LinkPreview(
-        url: url ?? this.url,
-        image: image ?? this.image,
-        title: title ?? this.title,
-        description: description ?? this.description);
-  }
+  }) =>
+      LinkPreview(
+          url: url ?? this.url,
+          image: image ?? this.image,
+          title: title ?? this.title,
+          description: description ?? this.description);
 
   @override
   String toString() {
-    // TODO: implement toString
     var map = {
       '"url"': '"$url"',
       '"title"': '"$title"',

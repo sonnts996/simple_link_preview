@@ -1,6 +1,11 @@
-A library for Dart developers.
+Free to get simple metadata for generating a weblink preview by examining the HTML <meta> tags.
 
 ## Usage
+
+```yaml
+dependencies:
+  simple_link_preview: ^2.0.0
+```
 
 A simple usage example:
 
@@ -27,6 +32,4 @@ void main() async{
 
 ## Features and bugs
 
-Please file feature requests and bugs at the [issue tracker][tracker].
-
-[tracker]: https://github.com/sonnts996/simple_link_preview/issues
+Please file feature requests and bugs at the [issue tracker](https://github.com/sonnts996/simple_link_preview/issues).

@@ -2,9 +2,8 @@
  Created by Thanh Son on 10/5/2021.
  Copyright (c) 2021 . All rights reserved.
 */
+/// The attributes appear in the <meta> tag
 class Attributes {
-  /// The attributes appear in the <meta> tag
-  ///
   /// List of title <meta> tag attributes
   static final title = [
     'og:title',

@@ -2,10 +2,11 @@
  Created by Thanh Son on 10/4/2021.
  Copyright (c) 2021 . All rights reserved.
 */
-import 'package:simple_link_preview/src/data/models/link_preview.model.dart';
+import '../../data/models/link_preview.model.dart';
 
+/// The interface to read metadata from weblink.
 abstract class LinkPreviewRepo {
-  /// Interface object to read metadata from web link.
+  /// The interface to read metadata from weblink.
   LinkPreviewRepo(this.url) {
     uri = Uri.parse(url);
   }

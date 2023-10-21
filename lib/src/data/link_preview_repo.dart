@@ -3,16 +3,17 @@
  Copyright (c) 2021 . All rights reserved.
 */
 import 'package:http/http.dart' as http;
-import 'package:metadata_fetch/metadata_fetch.dart' as fetch;
-import 'package:simple_link_preview/src/contants/attributes.dart';
-import 'package:simple_link_preview/src/data/models/link_preview.model.dart';
-import 'package:simple_link_preview/src/domain/repository/link_preview_repo.dart';
+import 'package:metadata_fetch_plus/metadata_fetch_plus.dart' as fetch;
 import 'package:universal_html/html.dart';
 import 'package:universal_html/parsing.dart';
 
-class LinkPreviewRepoV1 extends LinkPreviewRepo {
-  /// Extension object read metadata from web link.
+import '../contants/attributes.dart';
+import '../domain/repository/link_preview_repo.dart';
+import 'models/link_preview.model.dart';
 
+/// The extension object reads metadata from the weblink.
+class LinkPreviewRepoV1 extends LinkPreviewRepo {
+  /// The [LinkPreviewRepoV1]'s constructor
   LinkPreviewRepoV1(String url) : super(url);
 
   @override
@@ -22,12 +23,11 @@ class LinkPreviewRepoV1 extends LinkPreviewRepo {
     // Otherwise, return a valid LinkPreview.
     if (!uri.isAbsolute) throw Exception('Invalid url');
 
-    var meta = await fetchMeta(url).catchError((error) {
-      return fetchMeta(uri.host).catchError((error2) {
-        description = error2.message;
-        return null;
-      });
-    });
+    var meta = await fetchMeta(url)
+        .catchError((error) => fetchMeta(uri.host).catchError((error2) {
+              description = error2.message;
+              return null;
+            }));
 
     if (meta == null) {
       return LinkPreview(
@@ -55,19 +55,18 @@ class LinkPreviewRepoV1 extends LinkPreviewRepo {
     );
   }
 
-  Future<fetch.Metadata?> fetchMeta(String url) {
-    // Use fetch to get a faster metadata
-    return fetch.MetadataFetch.extract(url);
-  }
+  /// Use fetch to get a faster metadata
+  Future<fetch.Metadata?> fetchMeta(String url) =>
+      fetch.MetadataFetch.extract(url);
 
+  /// read html from uri
   Future<HtmlDocument> readHttp(Uri uri) async {
-    // read html from uri
     var contents = await http.read(uri);
     return parseHtmlDocument(contents);
   }
 
+  /// parsing data from meta tag
   void getMeta(HtmlDocument doc) {
-    // parsing data from meta tag
     var head = doc.head;
     if (head != null) {
       var t = head.querySelector('title')?.innerText;
@@ -103,8 +102,8 @@ class LinkPreviewRepoV1 extends LinkPreviewRepo {
     }
   }
 
+  /// check meta tag contains description content
   bool _validMetaDescriptionElement(Element meta) {
-    // check meta tag contains description content
     var attr = meta.attributes;
     var name = attr['name'] ?? '';
     var property = attr['property'] ?? '';
@@ -114,8 +113,8 @@ class LinkPreviewRepoV1 extends LinkPreviewRepo {
         Attributes.description.contains(itemprop);
   }
 
+  /// check meta tag contains title content
   bool _validMetaTitleElement(Element meta) {
-    // check meta tag contains title content
     var attr = meta.attributes;
     var name = attr['name'] ?? '';
     var property = attr['property'] ?? '';
@@ -125,8 +124,8 @@ class LinkPreviewRepoV1 extends LinkPreviewRepo {
         Attributes.title.contains(itemprop);
   }
 
+  /// check meta tag contains image content
   bool _validMetaImageElement(Element meta) {
-    // check meta tag contains image content
     var attr = meta.attributes;
     var name = attr['name'] ?? '';
     var property = attr['property'] ?? '';
